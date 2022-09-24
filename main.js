@@ -13,20 +13,31 @@
 (function () {
     'use strict';
     console.log("Started!");
-    let DkEnable = localStorage.getItem('DKEnable') === 'true';
-    let btnArea = document.querySelector("body");
-    let btn = document.createElement("button");
-    btn.textContent = DkEnable ? "Dark" : "Light";
-    btn.addEventListener("click", () => {
+    // localStorage.setItem('DkEnable', 'false');
+    let DkEnable = localStorage.getItem('DkEnable');
+    function Dkmode {
+        document.querySelector("body").setAttribute('style', 'background-color: #000; color: #FFF;');
+        document.querySelector("body > div.container.theme-showcase > div.uoj-content > div.row > div > div.table-responsive > table").setAttribute('style', 'color: #FFF;');
+    };
+    function Ltmode {
+        document.querySelector("body").setAttribute('style', 'background-color: #FFF; color: #111111;');
+    };
+
+    //初始化
+    document.querySelector("body > div.container.theme-showcase > div.uoj-content > div.card.card-default > div").remove();
+    if (DkEnable) Dkmode();
+    else Ltmode();
+
+    let btn = document.createElement('button');
+    btn.setAttribute('stlye', 'position: relative; top: 300px; right: 0px; height: 30px; width: 30px');
+    btn.textContent = DkEnable ? "Light" : "Dark";
+    btn.addEventListener('click', () => {
         DkEnable = !DkEnable;
-        localStorage.setItem("DKEnable", DkEnable);
-        btn.textContent = DkEnable ? "Dark" : "Light";
-        if (DkEnable) {
-            //Dark mode
-            console.log('Dark mode')
-        } else {
-            //Light mode
-            location.reload();
-        }
-    });
+        btn.textContent = DkEnable ? "Light" : "Dark";
+        localStorage.setItem('DkEnable', String(DkEnable));
+        body = document.querySelector("body");
+        if (DkEnable) Dkmode();
+        else Ltmode();
+    })
+    document.body.appendChild(btn);
 })();
